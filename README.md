@@ -35,40 +35,51 @@ The scaffolding is shared, the design language is not. Deliberate differences:
 
 | | HVNS | RMS |
 |---|---|---|
-| Palette | Navy `#1A2B3C` + gold `#F5A623` | Petrol-teal `#0E3B3C` + teal `#1F7A6B` |
-| Background | White / grey | Warm paper `#FBF9F6` |
+| Palette | Navy `#1A2B3C` + gold `#F5A623` | RMS blue `#1C4F78` + accent `#1A6394` |
+| Background | White / grey | Cool paper `#F7F9FB` |
 | Headings | Trebuchet MS (sans) | Georgia (serif) |
-| Cards | Solid dark navy panels | Light cards, warm hairline borders, teal left rule |
+| Cards | Solid dark navy panels | Light cards, hairline borders, blue left rule |
 | Services | 3-column icon-card grid | Numbered ledger (01–06) with tag pills |
-| Accent device | Gold rule inline before eyebrow | Teal rule above eyebrow |
+| Accent device | Gold rule inline before eyebrow | Blue rule above eyebrow |
 | Header | Logo + nav + portal/Calendly CTAs | Utility bar (accreditations + contact) above nav row |
 | Sections unique to it | Partners/tech, Calendly | Public-sector band, values ledger, timeline, contact form |
 
 No webfonts anywhere — everything is a system font stack, so there are no external requests
 and the strict CSP stays intact.
 
+### Brand colour
+
+`#1C4F78` is taken from the firm's live site, where it sets every heading, every link, the
+header background and the footer bar. The two supporting accents (`#1A6394` for light
+surfaces, `#5AA7DD` for dark bands) were chosen to hit WCAG AA against the surfaces they sit
+on — 6.1:1 and 5.5:1 respectively. If you change the blue, re-check those two.
+
+The Divi default blue `#2EA3F2` also appears all over their current site's CSS, but that is
+the theme's stock accent rather than a brand colour, so it was not used.
+
 ## Content sources
 
-Company description, mission, values, service list, history, team, contact details and
-accreditations were all taken from the live site at rmsauditors.co.za so the copy is factually
-accurate. Two things were **not** carried over verbatim:
+Company description, mission, values, service list, history, contact details and accreditations
+were all taken from the live site at rmsauditors.co.za so the copy is factually accurate.
+Departures from that source:
 
 - The live site says Rozel Scheepers has *"12 years' experience in public practise"*. That was
   written around 2012 and is now stale, so the copy says "qualified as a Chartered Accountant
   in 2000" and "more than two decades" instead — accurate regardless of when it is read.
-- Karien de Villiers' role and qualifications are not stated on the live site, so nothing was
-  invented. See the TODO below.
+- **Karien de Villiers has been removed entirely** (she is no longer with the firm) — her team
+  card and the 2012 timeline entry are both gone, per Tyron. The live site still lists her.
+- Staff names (Jolene, Ansonette, Marizaan, Anzelle, Sandra, Josephine, Vene) and the office
+  hours were supplied directly by Tyron, not sourced from the live site.
 
 ## Content still to fill in
 
 - **Logo** — the header and footer use a text wordmark (`.brand`), and `assets/favicon.svg` is a
   placeholder serif "R". Swap both for the real brand mark when supplied.
-- **Karien de Villiers** (`index.html`, `id="team"`) — job title, qualification and bio need
-  confirming with the firm. There is a `TODO` comment on the card.
-- **Team photos** — both cards use a serif initials monogram (`.team-monogram`). Replace with an
-  `<img>` once photographs are available.
-- **Office hours** (`index.html`, Contact section) — currently Mon–Fri 08:00–16:30 as a sensible
-  default. The live site does not state them, so confirm before going live. Marked with a `TODO`.
+- **Staff surnames and job titles** (`index.html`, `id="team"`) — the seven cards under "Our Team"
+  currently show first names only, with a single-letter monogram. There is a `TODO` comment above
+  the grid explaining exactly how to add a role line and a two-letter monogram to each.
+- **Team photos** — all cards use a serif initials monogram (`.team-monogram` / `.staff-monogram`).
+  Replace with an `<img>` once photographs are available.
 - **Accreditation logos** (`id="accreditations"`) — currently text abbreviations. SAICA, IRBA and
   SAIPA each have their own member-logo usage rules; check those before publishing the marks.
 - **Social links** — the live site has Facebook, Twitter/X and LinkedIn presence, but the URLs

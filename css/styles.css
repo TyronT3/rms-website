@@ -3,13 +3,18 @@
 
    Design language (deliberately distinct from the HVNS site,
    which shares the same underlying scaffolding):
-     · Warm paper background (#FBF9F6) instead of clinical white
-     · Deep petrol-teal ink (#0E3B3C) as the dominant brand colour
+     · RMS brand blue #1C4F78, taken from the firm's live site at
+       rmsauditors.co.za (where it sets every heading, link, the
+       header and the footer)
+     · Cool off-white paper (#F7F9FB) instead of clinical white,
+       tuned cool so it sits with the blue rather than against it
      · Serif headings (Georgia) against a system sans body
-     · LIGHT cards with hairline warm borders + a thin teal left
-       rule — never dark filled panels
+     · LIGHT cards with hairline borders + a thin blue left rule —
+       never dark filled panels
      · Services presented as a numbered ledger (01–06) rather than
        an icon-card grid
+   All accent colours are contrast-checked: the light-surface accent
+   is 6.1:1 on paper and the dark-band accent 5.5:1 on #0F2B42.
    No webfonts: everything is a system font stack, so there are no
    external requests and the strict CSP in _headers stays intact.
    ========================================================= */
@@ -19,31 +24,31 @@
   --font-heading: Georgia, "Times New Roman", "Nimbus Roman", serif;
   --font-body: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
 
-  --ink-950: #072626;   /* deepest — utility bar, footer, dark bands */
-  --ink-900: #0e3b3c;   /* brand primary */
-  --ink-800: #16504f;
-  --ink-700: #1f6462;
+  --ink-950: #0f2b42;   /* deepest — utility bar, footer, dark bands */
+  --ink-900: #1c4f78;   /* RMS brand blue (from rmsauditors.co.za) */
+  --ink-800: #24608f;
+  --ink-700: #2e74a8;
 
-  --teal-600: #1f7a6b;  /* accent on light surfaces */
-  --teal-500: #2f9b86;  /* accent on dark surfaces */
-  --teal-400: #57b5a1;
+  --accent-600: #1a6394;  /* accent on light surfaces — 6.1:1 on paper */
+  --accent-500: #5aa7dd;  /* accent on dark bands — 5.5:1 on --ink-950 */
+  --accent-400: #8cc5ea;
 
-  --color-bg: #fbf9f6;         /* warm paper */
-  --color-bg-alt: #f3efe9;     /* alternating section band */
+  --color-bg: #f7f9fb;         /* cool paper */
+  --color-bg-alt: #edf1f5;     /* alternating section band */
   --color-surface: #ffffff;    /* cards */
-  --color-text: #3d4442;
-  --color-heading: #0e3b3c;
-  --color-text-muted: #6b7370;
-  --color-border: #e4ded4;     /* warm hairline */
-  --color-accent: var(--teal-600);
+  --color-text: #3f4a54;
+  --color-heading: #1c4f78;
+  --color-text-muted: #66727e;
+  --color-border: #dce3ea;     /* cool hairline */
+  --color-accent: var(--accent-600);
 
   --btn-primary-bg: var(--ink-900);
   --btn-primary-bg-hover: var(--ink-800);
   --btn-primary-color: #ffffff;
 
-  --shadow-sm: 0 1px 2px rgba(7, 38, 38, 0.06);
-  --shadow-md: 0 6px 20px rgba(7, 38, 38, 0.07);
-  --shadow-lg: 0 18px 40px rgba(7, 38, 38, 0.13);
+  --shadow-sm: 0 1px 2px rgba(15, 43, 66, 0.06);
+  --shadow-md: 0 6px 20px rgba(15, 43, 66, 0.08);
+  --shadow-lg: 0 18px 40px rgba(15, 43, 66, 0.14);
 
   --radius-sm: 3px;
   --radius-md: 5px;
@@ -56,17 +61,17 @@
 }
 
 :root[data-theme="dark"] {
-  --color-bg: #0b1614;
-  --color-bg-alt: #101f1d;
-  --color-surface: #142623;
-  --color-text: #cfd8d5;
+  --color-bg: #0b1620;
+  --color-bg-alt: #101e2a;
+  --color-surface: #13212e;
+  --color-text: #ccd6e0;
   --color-heading: #ffffff;
-  --color-text-muted: #8c9a96;
-  --color-border: #233a36;
-  --color-accent: var(--teal-400);
-  --btn-primary-bg: var(--teal-500);
-  --btn-primary-bg-hover: var(--teal-400);
-  --btn-primary-color: #062120;
+  --color-text-muted: #8b98a6;
+  --color-border: #22374a;
+  --color-accent: var(--accent-400);
+  --btn-primary-bg: var(--accent-500);
+  --btn-primary-bg-hover: var(--accent-400);
+  --btn-primary-color: #0b1620;
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
@@ -75,17 +80,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-bg: #0b1614;
-    --color-bg-alt: #101f1d;
-    --color-surface: #142623;
-    --color-text: #cfd8d5;
+    --color-bg: #0b1620;
+    --color-bg-alt: #101e2a;
+    --color-surface: #13212e;
+    --color-text: #ccd6e0;
     --color-heading: #ffffff;
-    --color-text-muted: #8c9a96;
-    --color-accent: var(--teal-400);
-    --color-border: #233a36;
-    --btn-primary-bg: var(--teal-500);
-    --btn-primary-bg-hover: var(--teal-400);
-    --btn-primary-color: #062120;
+    --color-text-muted: #8b98a6;
+    --color-accent: var(--accent-400);
+    --color-border: #22374a;
+    --btn-primary-bg: var(--accent-500);
+    --btn-primary-bg-hover: var(--accent-400);
+    --btn-primary-color: #0b1620;
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.4);
     --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
@@ -150,7 +155,7 @@ button { font: inherit; cursor: pointer; }
 .skip-link:focus { left: 0; }
 
 :focus-visible {
-  outline: 2px solid var(--teal-600);
+  outline: 2px solid var(--accent-600);
   outline-offset: 2px;
 }
 
@@ -202,8 +207,8 @@ button { font: inherit; cursor: pointer; }
 
 /* For dark bands (public-sector band, CTA, footer) — fixed colours,
    because those surfaces stay dark in both themes. */
-.btn-ondark { background: var(--teal-500); color: #062120; }
-.btn-ondark:hover { background: var(--teal-400); }
+.btn-ondark { background: var(--accent-500); color: var(--ink-950); }
+.btn-ondark:hover { background: var(--accent-400); }
 .btn-ondark-ghost {
   background: transparent;
   color: #fff;
@@ -241,7 +246,7 @@ button { font: inherit; cursor: pointer; }
 .utility-creds { letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.7rem; }
 .utility-links { display: flex; align-items: center; gap: 22px; }
 .utility-links a { transition: color 0.2s var(--ease); }
-.utility-links a:hover { color: var(--teal-400); }
+.utility-links a:hover { color: var(--accent-400); }
 
 .header-inner {
   height: 68px;
@@ -252,7 +257,7 @@ button { font: inherit; cursor: pointer; }
 }
 
 /* Wordmark — text-based placeholder until the real logo file is supplied.
-   Serif monogram + stacked descriptor, ruled off by a teal divider. */
+   Serif monogram + stacked descriptor, ruled off by a blue divider. */
 .brand { display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .brand-mark {
   font-family: var(--font-heading);
@@ -413,16 +418,16 @@ button { font: inherit; cursor: pointer; }
 .hero h1 { margin-block: 22px 24px; }
 .hero h1 em {
   font-style: italic;
-  color: var(--teal-600);
+  color: var(--accent-600);
 }
-:root[data-theme="dark"] .hero h1 em { color: var(--teal-400); }
+:root[data-theme="dark"] .hero h1 em { color: var(--accent-400); }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .hero h1 em { color: var(--teal-400); }
+  :root:not([data-theme="light"]) .hero h1 em { color: var(--accent-400); }
 }
 .hero-lede { font-size: 1.09rem; color: var(--color-text-muted); max-width: 56ch; }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 34px; }
 
-/* Credentials panel — light card, thick teal left rule */
+/* Credentials panel — light card, thick blue left rule */
 .hero-panel {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -556,7 +561,7 @@ button { font: inherit; cursor: pointer; }
   gap: 60px;
   align-items: center;
 }
-.sector-band .eyebrow { color: var(--teal-400); border-top-color: var(--teal-500); }
+.sector-band .eyebrow { color: var(--accent-400); border-top-color: var(--accent-500); }
 .sector-band h2 { color: #fff; margin-top: 16px; }
 .sector-band p { color: rgba(255, 255, 255, 0.68); margin-top: 16px; }
 .sector-tags {
@@ -669,9 +674,11 @@ button { font: inherit; cursor: pointer; }
 .value-item p { font-size: 0.88rem; color: var(--color-text-muted); }
 
 /* ---------- Team ---------- */
+/* Upper bound is generous because the leadership tier currently holds a
+   single card — it would look stranded at a narrow fixed width. */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 560px));
   gap: 24px;
 }
 .team-card {
@@ -725,6 +732,52 @@ button { font: inherit; cursor: pointer; }
 }
 .team-note { margin-top: 28px; font-size: 0.9rem; color: var(--color-text-muted); }
 
+/* Tier heading inside the team section (Leadership / Our Team) */
+.team-tier-title {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 22px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+.team-tier-title + .team-tier-title,
+.tier-spaced { margin-top: 52px; }
+
+/* Compact staff cards — first names only until surnames and roles are
+   supplied, so these carry a monogram and a name and nothing more. */
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+}
+.staff-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 2px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  padding: 22px 16px;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s var(--ease);
+}
+.staff-card:hover { box-shadow: var(--shadow-md); }
+.staff-monogram {
+  width: 44px; height: 44px;
+  margin: 0 auto 12px;
+  display: grid; place-items: center;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+.staff-card h4 { font-size: 0.98rem; }
+
 /* ---------- Accreditations ---------- */
 .accred-grid {
   display: grid;
@@ -757,8 +810,8 @@ button { font: inherit; cursor: pointer; }
 .cta-banner h2 { color: #fff; }
 .cta-banner p { color: rgba(255, 255, 255, 0.72); margin-top: 16px; }
 .cta-banner .eyebrow {
-  color: var(--teal-400);
-  border-top-color: var(--teal-500);
+  color: var(--accent-400);
+  border-top-color: var(--accent-500);
   display: inline-block;
 }
 .cta-banner-actions {
@@ -878,7 +931,7 @@ button { font: inherit; cursor: pointer; }
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 .footer-brand .brand-mark { color: #fff; }
-.footer-brand .brand-divider { background: var(--teal-500); }
+.footer-brand .brand-divider { background: var(--accent-500); }
 .footer-brand .brand-text { color: rgba(255, 255, 255, 0.55); }
 .footer-brand p {
   margin-top: 18px;
@@ -901,7 +954,7 @@ button { font: inherit; cursor: pointer; }
   color: rgba(255, 255, 255, 0.8);
   transition: color 0.2s var(--ease);
 }
-.footer-col a:hover { color: var(--teal-400); }
+.footer-col a:hover { color: var(--accent-400); }
 
 .footer-bottom {
   display: flex;
@@ -920,8 +973,8 @@ button { font: inherit; cursor: pointer; }
   width: 44px; height: 44px;
   border-radius: 50%;
   background: var(--ink-900);
-  border: 1px solid var(--teal-500);
-  color: var(--teal-400);
+  border: 1px solid var(--accent-500);
+  color: var(--accent-400);
   display: grid; place-items: center;
   box-shadow: var(--shadow-lg);
   opacity: 0;
