@@ -91,6 +91,29 @@ To take submissions properly later, pick one:
 
 The handler in `js/main.js` has a comment block marking exactly where to make the swap.
 
+## Temporary preview: GitHub Pages
+
+Live at **https://tyront3.github.io/rms-website/** — a stopgap for showing the site to someone
+before Cloudflare is set up. Every push to `main` rebuilds it automatically (usually under a
+minute).
+
+```bash
+git add -A && git commit -m "your message" && git push
+```
+
+Notes:
+
+- The repo is **public**, because GitHub Pages only serves from public repos on a free account.
+  The `noindex` meta tag and `robots.txt` `Disallow: /` are both still in place, so search
+  engines skip it — but the URL and source are technically viewable by anyone who has the link.
+- `_headers` does nothing here — it is a Cloudflare Pages feature. The security headers only
+  take effect once the site is on Cloudflare. `.nojekyll` stops GitHub from running the files
+  through Jekyll.
+- All asset paths are relative, so the site works correctly from the `/rms-website/` subpath
+  without any config.
+- To take the preview down: `gh api -X DELETE repos/TyronT3/rms-website/pages`, or delete the
+  repo with `gh repo delete TyronT3/rms-website`.
+
 ## Deploying to Cloudflare Pages
 
 No domain is needed to deploy — you get a free `*.pages.dev` URL to work from, and can attach
