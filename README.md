@@ -9,7 +9,8 @@ nothing to patch or keep up to date.
 ```
 index.html          Page content (single page, anchor-linked sections)
 css/styles.css      Design tokens + layout (light/dark theme via CSS variables)
-js/main.js          Theme toggle, mobile nav, scroll-reveal, back-to-top, contact form
+js/main.js          Theme toggle, mobile nav, scroll-reveal, count-up stats,
+                    scroll progress, scrollspy, back-to-top, contact form
 assets/favicon.svg  Placeholder mark (petrol square, serif "R")
 _headers            Cloudflare Pages security headers (CSP, HSTS, etc.)
 robots.txt          Currently blocks ALL indexing — see "Going live" below
@@ -38,14 +39,41 @@ The scaffolding is shared, the design language is not. Deliberate differences:
 | Palette | Navy `#1A2B3C` + gold `#F5A623` | RMS blue `#1C4F78` + accent `#1A6394` |
 | Background | White / grey | Cool paper `#F7F9FB` |
 | Headings | Trebuchet MS (sans) | Georgia (serif) |
-| Cards | Solid dark navy panels | Light cards, hairline borders, blue left rule |
-| Services | 3-column icon-card grid | Numbered ledger (01–06) with tag pills |
-| Accent device | Gold rule inline before eyebrow | Blue rule above eyebrow |
+| Cards | Solid dark navy panels | Light cards, hairline borders, gradient top rule |
+| Services | 3-column icon-card grid | Numbered ledger (01–06) as cards, with tag pills |
+| Accent device | Gold rule inline before eyebrow | Blue rule above eyebrow, drawn on reveal |
 | Header | Logo + nav + portal/Calendly CTAs | Utility bar (accreditations + contact) above nav row |
-| Sections unique to it | Partners/tech, Calendly | Public-sector band, values ledger, timeline, contact form |
+| Sections unique to it | Partners/tech, Calendly | Public-sector band, values, timeline, marquee, contact form |
 
 No webfonts anywhere — everything is a system font stack, so there are no external requests
 and the strict CSP stays intact.
+
+### Liveliness without extra colour
+
+The brief was a livelier, more active feel — the palette above unchanged. Everything that
+does that work is motion, shape or rhythm, never a new hue:
+
+- **Rounded slabs.** Radii are 8/14/22/32px and buttons are pills. The public-sector band and
+  the CTA are inset rounded slabs floating on the paper rather than full-bleed rectangles;
+  the footer has rounded top corners.
+- **Aurora orbs** (`.orbs` / `.orb`) — blurred radial washes of the same brand blue, drifting
+  on 19–27s loops behind the hero and both dark slabs. Hidden below 640px.
+- **A rotating headline verb** — grow / comply / plan / scale. A hidden `.rotator-sizer` holds
+  the width of the longest word so the line never reflows; the visible track is `aria-hidden`
+  and the accessible name comes from an adjacent `.sr-only` word.
+- **Count-up statistics.** `[data-count]` elements already contain their final value in the
+  markup, so the strip is correct with JS off — the script only animates the approach.
+- **A credential marquee.** The item list appears **twice** and the track travels exactly
+  `-50%`; that is what makes the loop seamless, so keep the two copies identical if you edit
+  it. Pauses on hover.
+- **Scroll-progress rule** across the top of the header, and **scrollspy** on the primary nav.
+- **Directional staggered reveals** — `.reveal` plus `.reveal-left` / `.reveal-right` /
+  `.reveal-scale`, with stagger from `.stagger > .reveal:nth-child()`. The stagger lives in
+  CSS rather than inline styles because the CSP disallows those.
+
+Every animation is disabled under `prefers-reduced-motion: reduce`. Each keyframe is authored
+to **start and end on its resting frame**, so a frozen animation still renders the intended
+composition — worth preserving if you add more.
 
 ### Brand colour
 
@@ -70,6 +98,10 @@ Departures from that source:
   card and the 2012 timeline entry are both gone, per Tyron. The live site still lists her.
 - Staff names (Jolene, Ansonette, Marizaan, Anzelle, Sandra, Josephine, Vene) and the office
   hours were supplied directly by Tyron, not sourced from the live site.
+- The hero stat strip reads **"25+ years in practice"**. Founded in 2000, so the `+` keeps it
+  true indefinitely — but it is deliberately conservative and worth rounding up at the next
+  milestone. It is hardcoded in two places that must match: the `data-count` attribute and the
+  element's text content (the text is what shows with JS disabled).
 
 ## Content still to fill in
 
