@@ -1,0 +1,7 @@
+# LOCAL / TEST BUILD — indexing is blocked entirely for now.
+# When the site goes live on its permanent domain: change Disallow to Allow,
+# uncomment the Sitemap line, and remove the noindex meta tag in index.html.
+User-agent: *
+Disallow: /
+
+# Sitemap: https://www.rmsauditors.co.za/sitemap.xml
