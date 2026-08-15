@@ -1,0 +1,25 @@
+export default {
+  extends: ["stylelint-config-standard"],
+  ignoreFiles: ["dist/**/*.css"],
+  rules: {
+    "alpha-value-notation": "number",
+    "at-rule-empty-line-before": null,
+    "color-function-notation": "legacy",
+    "color-function-alias-notation": null,
+    "color-hex-length": null,
+    "comment-empty-line-before": null,
+    "custom-property-empty-line-before": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "declaration-block-single-line-max-declarations": null,
+    "declaration-empty-line-before": null,
+    "media-feature-range-notation": null,
+    "no-descending-specificity": null,
+    // The final audit-dossier section is an intentional, documented refinement layer.
+    "no-duplicate-selectors": null,
+    "property-no-deprecated": null,
+    "rule-empty-line-before": null,
+    "selector-class-pattern": null,
+    "shorthand-property-no-redundant-values": null,
+    "value-keyword-case": null,
+  },
+};

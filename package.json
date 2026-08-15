@@ -1,0 +1,27 @@
+{
+  "name": "rms-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static website for RMS Chartered Accountants Inc.",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint:html": "html-validate index.html",
+    "lint:css": "stylelint \"css/**/*.css\"",
+    "lint:js": "eslint \"js/**/*.js\"",
+    "test:static": "node scripts/verify-static.mjs",
+    "check": "npm run lint && npm run test:static && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "eslint": "^10.8.1",
+    "html-validate": "^11.6.2",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard": "^40.0.0",
+    "vite": "^8.2.1"
+  }
+}

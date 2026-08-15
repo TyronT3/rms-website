@@ -1,8 +1,8 @@
 # RMS Chartered Accountants Inc. — Website
 
-A static one-page site for RMS Chartered Accountants Inc. Plain HTML/CSS/JS — no build step,
-no framework, no dependencies. Same approach as the HVNS site: fast, hostable anywhere, and
-nothing to patch or keep up to date.
+A static one-page site for RMS Chartered Accountants Inc. The deployed site remains plain
+HTML/CSS/JS with no framework or runtime dependencies. A small Node-based development harness
+provides local preview, source validation, static integrity checks and a production build.
 
 ## File overview
 
@@ -12,23 +12,42 @@ css/styles.css      Design tokens + layout (light/dark theme via CSS variables)
 js/main.js          Theme toggle, mobile nav, scroll-reveal, count-up stats,
                     scroll progress, scrollspy, back-to-top, contact form
 assets/favicon.svg  Placeholder mark (petrol square, serif "R")
+scripts/verify-static.mjs
+                    Checks IDs, anchor targets, local files and subpath-safe URLs
+package.json        Local preview, validation and production build commands
+vite.config.mjs     Relative-path production build; copies deployment metadata
+eslint.config.mjs   Browser JavaScript correctness checks
+stylelint.config.mjs
+                    CSS correctness checks fitted to the existing stylesheet
+.htmlvalidate.json  HTML structure and accessibility-oriented validation
+.editorconfig       Shared whitespace and line-ending conventions
 _headers            Cloudflare Pages security headers (CSP, HSTS, etc.)
 robots.txt          Currently blocks ALL indexing — see "Going live" below
 sitemap.xml         Ready for when the site is public
 .assetsignore       Keeps README.md out of the Pages upload
 ```
 
-## Previewing locally
+## Development workflow
 
-Any static file server works:
+Install the development dependencies once, then start the local preview:
 
 ```bash
-python -m http.server 8080
-# then open http://localhost:8080
+npm install
+npm run dev
 ```
 
-Opening `index.html` directly via `file://` mostly works too, but use a server if you want
-the Google Maps embed and `localStorage` theme persistence to behave normally.
+Useful commands:
+
+```bash
+npm run dev          # Vite preview with automatic reload
+npm run check        # HTML, CSS, JS, link/asset checks, then production build
+npm run build        # writes a deployable site to dist/
+npm run preview      # serves the generated dist/ build locally
+```
+
+Run `npm run check` before every push. Opening `index.html` directly via `file://` still mostly
+works, but a server is required for an accurate preview of the Google Maps embed, module script
+and `localStorage` behaviour.
 
 ## Design notes — how this differs from the HVNS site
 
@@ -39,11 +58,11 @@ The scaffolding is shared, the design language is not. Deliberate differences:
 | Palette | Navy `#1A2B3C` + gold `#F5A623` | RMS blue `#1C4F78` + accent `#1A6394` |
 | Background | White / grey | Cool paper `#F7F9FB` |
 | Headings | Trebuchet MS (sans) | Georgia (serif) |
-| Cards | Solid dark navy panels | Light cards, hairline borders, gradient top rule |
-| Services | 3-column icon-card grid | Numbered ledger (01–06) as cards, with tag pills |
+| Cards | Solid dark navy panels | Indexed working-paper panels with hairline rules |
+| Services | 3-column icon-card grid | Numbered service records with scope checklists |
 | Accent device | Gold rule inline before eyebrow | Blue rule above eyebrow, drawn on reveal |
 | Header | Logo + nav + portal/Calendly CTAs | Utility bar (accreditations + contact) above nav row |
-| Sections unique to it | Partners/tech, Calendly | Public-sector band, values, timeline, marquee, contact form |
+| Sections unique to it | Partners/tech, Calendly | Public-sector band, principles, timeline, marquee, contact form |
 
 No webfonts anywhere — everything is a system font stack, so there are no external requests
 and the strict CSP stays intact.
@@ -53,16 +72,16 @@ and the strict CSP stays intact.
 The brief was a livelier, more active feel — the palette above unchanged. Everything that
 does that work is motion, shape or rhythm, never a new hue:
 
-- **Rounded slabs.** Radii are 8/14/22/32px and buttons are pills. The public-sector band and
-  the CTA are inset rounded slabs floating on the paper rather than full-bleed rectangles;
-  the footer has rounded top corners.
+- **Audit-dossier structure.** The hero engagement brief, proof cells, service references,
+  review ticks and registration indexes borrow from working papers without becoming literal
+  stationery. Corners are tighter on content panels; pills are reserved for controls.
 - **Aurora orbs** (`.orbs` / `.orb`) — blurred radial washes of the same brand blue, drifting
   on 19–27s loops behind the hero and both dark slabs. Hidden below 640px.
-- **A rotating headline verb** — grow / comply / plan / scale. A hidden `.rotator-sizer` holds
-  the width of the longest word so the line never reflows; the visible track is `aria-hidden`
-  and the accessible name comes from an adjacent `.sr-only` word.
-- **Count-up statistics.** `[data-count]` elements already contain their final value in the
-  markup, so the strip is correct with JS off — the script only animates the approach.
+- **Active review details.** The hero underline draws in, the engagement file receives a slow
+  scan of blue light, the senior-review mark drifts, and the registration tick breathes. These
+  stay deliberately slower and smaller than the scroll-reveal motion.
+- **Count-up practice depth.** The `25+` figure already contains its final value in the markup,
+  so it is correct with JS off — the script only animates the approach.
 - **A credential marquee.** The item list appears **twice** and the track travels exactly
   `-50%`; that is what makes the loop seamless, so keep the two copies identical if you edit
   it. Pauses on hover.
@@ -96,7 +115,8 @@ Departures from that source:
   in 2000" and "more than two decades" instead — accurate regardless of when it is read.
 - **Karien de Villiers has been removed entirely** (she is no longer with the firm) — her team
   card and the 2012 timeline entry are both gone, per Tyron. The live site still lists her.
-- Staff names (Jolene, Ansonette, Marizaan, Anzelle, Sandra, Josephine, Vene) and the office
+- Staff names and roles (Jolene Rheeder, Ansonette Truter, Marizaan van der Lingen, Anzelle
+  van der Vyver, Sandra Swanepoel, Josephine, Vene Putter and Suzanne Scheepers) and the office
   hours were supplied directly by Tyron, not sourced from the live site.
 - The hero stat strip reads **"25+ years in practice"**. Founded in 2000, so the `+` keeps it
   true indefinitely — but it is deliberately conservative and worth rounding up at the next
@@ -107,9 +127,8 @@ Departures from that source:
 
 - **Logo** — the header and footer use a text wordmark (`.brand`), and `assets/favicon.svg` is a
   placeholder serif "R". Swap both for the real brand mark when supplied.
-- **Staff surnames and job titles** (`index.html`, `id="team"`) — the seven cards under "Our Team"
-  currently show first names only, with a single-letter monogram. There is a `TODO` comment above
-  the grid explaining exactly how to add a role line and a two-letter monogram to each.
+- **Josephine's surname** (`index.html`, `id="team"`) — her Admin & Support role is included,
+  but her surname still needs to be confirmed.
 - **Team photos** — all cards use a serif initials monogram (`.team-monogram` / `.staff-monogram`).
   Replace with an `<img>` once photographs are available.
 - **Accreditation logos** (`id="accreditations"`) — currently text abbreviations. SAICA, IRBA and
@@ -164,10 +183,10 @@ a custom domain later without redeploying.
 
 ### Option A — Dashboard drag-and-drop (fastest)
 
-1. Cloudflare dashboard → **Workers & Pages** → **Create application** → **Pages** →
+1. Run `npm install && npm run check`.
+2. Cloudflare dashboard → **Workers & Pages** → **Create application** → **Pages** →
    **Upload assets**.
-2. Name it (e.g. `rms-website`) and upload this whole folder.
-3. No build command and no output directory override — it's already static at the root.
+3. Name it (e.g. `rms-website`) and upload the generated `dist/` folder.
 4. You'll get a `rms-website.pages.dev` URL to review on.
 
 ### Option B — Wrangler CLI (repeatable)
@@ -175,13 +194,15 @@ a custom domain later without redeploying.
 ```bash
 npx wrangler login
 npx wrangler pages project create rms-website
-npx wrangler pages deploy . --project-name=rms-website
+npm run build
+npx wrangler pages deploy dist --project-name=rms-website
 ```
 
 ### Option C — Connect a GitHub repo (best if you'll keep iterating)
 
-Push this folder to a repo, then in Cloudflare Pages choose **Connect to Git**. Every push to
-`main` auto-deploys.
+Push this folder to a repo, then in Cloudflare Pages choose **Connect to Git**. Set the build
+command to `npm run build` and the output directory to `dist`. Every push to `main` then
+auto-deploys.
 
 ### Attaching the domain once you have one
 
